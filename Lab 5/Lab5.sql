@@ -52,17 +52,25 @@ from agents
 inner join customers
 	on customers.city = agents.city
 
---Q7
-select name, city
+--Q7 may not be the prettiest, but it gets the job done. This one took the longest
+--and I pushed my google machine to the limit.
+
+with citySum as(
+select city,sum(quantity) as sum
+from products
+group by city)
+
+select name,city
 from customers
-where city
+where city 
 in
 (select city
-from products
-where quantity 
-in
-(select min(quantity)
-from products))
+from citySum
+where sum =(
+select min(sum)
+from citySum))
+
+
 
 
 	
