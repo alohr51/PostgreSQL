@@ -24,7 +24,7 @@ from
 (select p.city,sum(p.quantity) as lowSum
 from products p
 group by city) summedCityQuantities
-order by lowSum desc) 
+order by lowSum desc)
  
 --Q3
 with average as(
@@ -69,13 +69,11 @@ where agents.city = 'New York'
 
 --Q7
 
-select customers.name as gay,customers.cid,(prod.qty * prod.priceUSD) - ((prod.qty * prod.priceUSD)*customers.discount)/100 as totalAfterDiscount
-from customers 
+select customers.name,customers.cid,(prod.qty * prod.priceUSD) - ((prod.qty * prod.priceUSD)*customers.discount)/100 as totalAfterDiscount
+from customers
 join (select *
       from orders
       join products
       on orders.pid = products.pid)as prod
 on customers.cid = prod.cid
-
-
 
